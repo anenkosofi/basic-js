@@ -9,30 +9,19 @@
  *
  */
 function encodeLine(str) {
-  let string = "";
+  let res = "";
+  let count = 1;
 
-  if (!str.length) {
-    return string;
+  for (let i = 1; i <= str.length; i++) {
+    if (i < str.length && str[i] === str[i - 1]) {
+      count++;
+    } else {
+      res += count === 1 ? str[i - 1] : `${count}${str[i - 1]}`;
+      count = 1;
+    }
   }
 
-  const object = str.split("").reduce((acc, char) => {
-    if (acc[char]) {
-      acc[char] += 1;
-    } else {
-      acc[char] = 1;
-    }
-    return acc;
-  }, {});
-
-  Object.entries(object).map(([key, value]) => {
-    if (value > 1) {
-      string += `${value}${key}`;
-    } else {
-      string += `${key}`;
-    }
-  });
-
-  return string;
+  return res;
 }
 
 module.exports = {

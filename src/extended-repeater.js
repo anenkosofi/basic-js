@@ -15,40 +15,20 @@
  */
 function repeater(str, options) {
   const {
-    repeatTimes,
-    separator,
-    addition,
-    additionRepeatTimes,
-    additionSeparator,
+    repeatTimes = 1,
+    separator = "+",
+    addition = "",
+    additionRepeatTimes = 1,
+    additionSeparator = "|",
   } = options;
 
-  let string1 = [];
-  let string2 = [];
+  const additionString = Array(additionRepeatTimes)
+    .fill(String(addition))
+    .join(additionSeparator);
 
-  let mainString = str;
-  let additionString = "";
+  const mainString = String(str) + additionString;
 
-  if (typeof addition !== "undefined") {
-    additionString = addition;
-    for (let i = 0; i < (additionRepeatTimes || 1); i += 1) {
-      string2.push(String(additionString));
-    }
-    string2 = string2.join(additionSeparator || "|");
-
-    if (string2.length) {
-      mainString += string2;
-    } else {
-      mainString += addition;
-    }
-  }
-
-  for (let i = 0; i < (repeatTimes || 1); i += 1) {
-    string1.push(mainString);
-  }
-
-  string1 = string1.join(separator || "+");
-
-  return string1;
+  return Array(repeatTimes).fill(mainString).join(separator);
 }
 
 module.exports = {
